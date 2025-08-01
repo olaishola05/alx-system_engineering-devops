@@ -1,2 +1,3 @@
 #!/bin/bash
-sh -c echo "$PATH" | tr ':' '\n' | grep -c '^/.*$'
+echo "$PATH" | tr ':' '\n' | grep -c '^/.*$'
+

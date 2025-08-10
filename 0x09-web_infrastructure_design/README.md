@@ -71,7 +71,7 @@ The lack of HTTPS encryption means all data transmitted between clients and serv
 #### Monitoring Absence
 Without monitoring systems in place, there is no visibility into server performance, resource utilization, error rates, or system health, making it impossible to proactively identify issues or optimize performance before problems affect users.
 
-![Secured Monitored Web Infra](1-distributed_web_infrastructure.png)
+![Secured Monitored Web Infra](2-secured_and_monitored_web_infrastructure.png)
 ## Secured and Monitored Web Infrastructure
 
 ### Infrastructure Components Explanation

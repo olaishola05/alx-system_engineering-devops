@@ -104,3 +104,35 @@ Having only one MySQL server capable of accepting writes creates a critical bott
 
 #### Monolithic Server Component Problem
 Having servers with all the same components (database, web server, and application server) creates resource contention issues, makes scaling individual tiers impossible, and increases complexity for maintenance since each server must handle multiple distinct workloads with different performance characteristics.
+
+
+![Scale Up](3-scale_up.png)
+
+## Scale Up
+
+### Infrastructure Components and Additions
+
+#### Additional Server Addition
+The additional server is added to eliminate the single point of failure by providing redundancy for critical services, ensuring that if one server fails, the other can continue serving requests without service interruption.
+
+#### HAproxy Load Balancer Cluster Addition
+The HAproxy load balancer is configured as a cluster with the existing load balancer to create high availability for traffic distribution, preventing the load balancer itself from becoming a single point of failure and ensuring continuous request routing.
+
+#### Web Server Component Separation
+The web server is moved to its own dedicated server to optimize resource allocation for serving static content and handling HTTP requests, allowing for independent scaling and maintenance without affecting other system components.
+
+#### Application Server Component Separation
+The application server is isolated on its own dedicated server to focus exclusively on executing business logic and processing dynamic requests, enabling optimized performance tuning and scaling based on computational requirements.
+
+#### Database Server Component Separation
+The database is relocated to its own dedicated server to provide optimized storage performance, enhanced security through network isolation, and the ability to scale database resources independently based on data access patterns.
+
+### Infrastructure Overview
+#### High-Level Architecture
+The infrastructure consists of a clustered HAproxy load balancer pair distributing traffic across multiple application tiers, with each component type (web, application, database) running on dedicated servers for optimal resource utilization and fault isolation.
+
+#### Component Distribution
+Two load balancers work in active-passive or active-active configuration to route incoming requests to dedicated web servers, which forward dynamic requests to separate application servers that connect to an isolated database server for data operations.
+
+#### Redundancy and Scaling Strategy
+The architecture provides horizontal scaling capabilities by allowing additional servers to be added to each tier independently, while the clustered load balancers ensure high availability and the separated components prevent resource contention between different service types.

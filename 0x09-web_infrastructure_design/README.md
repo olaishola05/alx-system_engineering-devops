@@ -1,6 +1,6 @@
 # Web Infrastructure Design
 
-
+![Simple Web Infrastructure](0-simple_web_stack.png)
 ## Simple Web Infrastructure
 
 ### Infrastructure Components Explanation
@@ -37,6 +37,7 @@ Downtime is inevitable during maintenance activities such as deploying new code,
 The infrastructure cannot scale to handle increased traffic since all requests must be processed by the single server's limited CPU, memory, and network resources, creating a hard ceiling on the number of concurrent users the system can support.
 
 
+![Distributed Web Infrastructure](1-distributed_web_infrastructure.png)
 ## Distributed Web Infrastructure
 
 ### Infrastructure Components Explanation
@@ -69,3 +70,37 @@ The lack of HTTPS encryption means all data transmitted between clients and serv
 
 #### Monitoring Absence
 Without monitoring systems in place, there is no visibility into server performance, resource utilization, error rates, or system health, making it impossible to proactively identify issues or optimize performance before problems affect users.
+
+![Secured Monitored Web Infra](1-distributed_web_infrastructure.png)
+## Secured and Monitored Web Infrastructure
+
+### Infrastructure Components Explanation
+
+#### Additional Element Additions
+Each additional element is added to address specific scalability, security, or reliability requirements, such as adding firewalls for security, HTTPS for data protection, and monitoring for operational visibility.
+
+#### Firewall Purpose
+Firewalls serve as security barriers that filter network traffic based on predetermined rules, blocking unauthorized access attempts while allowing legitimate traffic to pass through to protected servers.
+
+#### HTTPS Traffic Benefits
+Traffic is served over HTTPS to encrypt data in transit between clients and servers, preventing eavesdropping, data tampering, and man-in-the-middle attacks while ensuring data integrity and user privacy.
+
+#### Monitoring Purpose
+Monitoring is used to continuously track system performance, resource utilization, error rates, and availability metrics, enabling proactive issue detection and informed capacity planning decisions.
+
+#### Monitoring Data Collection
+The monitoring tool collects data through agents installed on servers that gather metrics like CPU usage, memory consumption, disk I/O, and network statistics, then transmit this information to a centralized monitoring dashboard for analysis.
+
+#### Web Server QPS Monitoring
+To monitor web server QPS (Queries Per Second), configure the monitoring tool to track HTTP request counts over time intervals, set up dashboards to visualize request rates, and establish alerts for when QPS exceeds or falls below defined thresholds.
+
+### Infrastructure Issues
+
+#### SSL Termination at Load Balancer Issue
+Terminating SSL at the load balancer level creates a security vulnerability because traffic between the load balancer and backend servers travels unencrypted, exposing sensitive data to potential interception within the internal network.
+
+#### Single MySQL Write Server Issue
+Having only one MySQL server capable of accepting writes creates a critical bottleneck and single point of failure, as all write operations must queue through this server, and its failure would make the entire application read-only or completely unavailable.
+
+#### Monolithic Server Component Problem
+Having servers with all the same components (database, web server, and application server) creates resource contention issues, makes scaling individual tiers impossible, and increases complexity for maintenance since each server must handle multiple distinct workloads with different performance characteristics.
